@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TodoController!{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+        <div class="input-group">
+            {{ form_widget(form.task) }}
+            {{ form_widget(form.save) }}
+        </div>
+    {{ form_end(form) }}
+
+    <div class="mt-5">
+        <h1>Liste de tâche</h1>
+        {{ include('parts/todo/_table.html.twig', { field: { 'todos' : todos } }) }}
+    </div>
+    <div class="mt-5">
+        <h1>Terminés</h1>
+        {{ include('parts/todo/_table.html.twig', { field: { 'todos' : dones } }) }}
+    </div>
+{% endblock %}

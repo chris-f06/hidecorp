@@ -29,7 +29,8 @@ class TodoType extends AbstractType
                     'class' => 'btn btn-outline-primary',
                     'id' => 'button-addon',
                 ],
-            ]);
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

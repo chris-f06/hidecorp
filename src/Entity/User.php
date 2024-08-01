@@ -157,7 +157,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getPicture(): ?string
     {
-        return $this->picture;
+        return $_ENV['PROFILE_IMAGE_PATH'] . '/' . $this->picture;
     }
 
     public function setPicture(?string $picture): static

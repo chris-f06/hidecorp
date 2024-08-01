@@ -29,6 +29,9 @@ class Todo
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $deletedAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'todos')]
+    private ?TodoCategory $category = null;
+
     #[ORM\PrePersist]
     public function onPrePersist(): void
     {
@@ -84,6 +87,18 @@ class Todo
     public function setDeletedAt(?\DateTimeImmutable $deletedAt): static
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getCategory(): ?TodoCategory
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?TodoCategory $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }

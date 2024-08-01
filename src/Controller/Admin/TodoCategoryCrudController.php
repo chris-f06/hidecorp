@@ -2,33 +2,32 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Todo;
+use App\Entity\TodoCategory;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class TodoCrudController extends AbstractCrudController
+class TodoCategoryCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Todo::class;
+        return TodoCategory::class;
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('Tâche')
-            ->setEntityLabelInPlural('Tâches');
+            ->setEntityLabelInSingular('Catégorie')
+            ->setEntityLabelInPlural('Catégories');
     }
 
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id', '#')->onlyOnIndex(),
-            TextField::new('task', 'Tâche'),
-            DateTimeField::new('endedAt', 'Statut')->setTemplatePath('parts/admin/_todo_status.html.twig')->onlyOnIndex()
+            TextField::new('title', 'Nom'),
         ];
     }
 }

@@ -28,8 +28,7 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield ImageField::new('picture', 'Photo de profil')
-            ->setUploadDir('public/uploads/pictures')
-            ->setBasePath('uploads/pictures')
+            ->setUploadDir('public/' . $_ENV['PROFILE_IMAGE_PATH'])
             ->setUploadedFileNamePattern('[contenthash].[extension]')
             ->setRequired(false);
         yield TextField::new('firstname', 'Prénom');

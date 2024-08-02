@@ -13,7 +13,18 @@ use Symfony\Component\HttpFoundation\Request;
 class TodoController extends AbstractController
 {
     #[Route('/todo', name: 'app_todo')]
-    public function index(TodoRepository $todoRepository, Request $request, EntityManagerInterface $entityManager): Response
+    public function index(TodoRepository $todoRepository): Response
+    {
+        $todosList = $this->getTodos($todoRepository);
+
+        return $this->render('todo/index.html.twig', [
+            'todos' => $todosList['todos'],
+            'dones' => $todosList['dones'],
+        ]);
+    }
+
+    #[Route('/todo/ajouter', name: 'app_todo_add')]
+    public function add(TodoRepository $todoRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         // Form
         $formTodo = $this->createForm(TodoType::class);
@@ -29,13 +40,8 @@ class TodoController extends AbstractController
             return $this->redirectToRoute('app_todo');
         }
 
-        // Prepare view data
-        $todosList = $this->getTodos($todoRepository);
-
-        return $this->render('todo/index.html.twig', [
-            'form' => $formTodo->createView(),
-            'todos' => $todosList['todos'],
-            'dones' => $todosList['dones'],
+        return $this->render('todo/form.html.twig', [
+            'form' => $formTodo->createView()
         ]);
     }
 
@@ -59,14 +65,8 @@ class TodoController extends AbstractController
             return $this->redirectToRoute('app_todo');
         }
 
-
-        // Prepare view data
-        $todosList = $this->getTodos($todoRepository);
-
-        return $this->render('todo/index.html.twig', [
-            'form' => $formTodo->createView(),
-            'todos' => $todosList['todos'],
-            'dones' => $todosList['dones'],
+        return $this->render('todo/form.html.twig', [
+            'form' => $formTodo->createView()
         ]);
     }
 

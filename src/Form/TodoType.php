@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Todo;
+use App\Entity\TodoCategory;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,19 +17,30 @@ class TodoType extends AbstractType
     {
         $builder
             ->add('task', TextType::class, [
-                'label' => 'false',
+                'label' => 'Tâche à ajouter',
                 'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Ajouter une tache...',
-                    'aria-label' => 'Ajouter une tache...',
-                    'aria-describedby' => 'button-addon',
+                    'placeholder' => 'Tâche à ajouter',
+                ],
+                'row_attr' => [
+                    'class' => 'form-floating mb-3',
+                ],
+            ])
+            ->add('category', EntityType::class, [
+                'label' => 'Catégorie',
+                'class' => TodoCategory::class,
+                'required' => false,
+                'label_html' => true,
+                'attr' => [
+                    'placeholder' => 'Catégorie',
+                ],
+                'row_attr' => [
+                    'class' => 'form-floating mb-3',
                 ],
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Valider',
                 'attr' => [
                     'class' => 'btn btn-outline-primary',
-                    'id' => 'button-addon',
                 ],
             ])
         ;
